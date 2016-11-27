@@ -1,3 +1,5 @@
+/* globals desc: flase, task: false, complete: false, fail: false */
+
 (function() {
   'use strict';
 
@@ -33,7 +35,15 @@
 
     jshint.checkFiles({
       files: "Jakefile.js",
-      options: {},
+      options: {
+        bitwise: true,
+        freeze: true,
+        strict: true,
+        undef: true, // ! Add globals at the beginning.
+
+        node: true,
+        browser: true
+      },
       globals: {}
     }, complete, fail);
     //jake.exec('node node_modules/jshint/bin/jshint Jakefile.js', { interactive: true }, complete);
