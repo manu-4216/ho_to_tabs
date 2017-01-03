@@ -47,7 +47,15 @@
 
     jshint.checkFiles({
       files: ["Jakefile.js", "src/**/*.js"],
-      options: {
+      options: lintOptions(),
+      globals: lintGlobals(),
+    }, complete, fail);
+    //jake.exec('node node_modules/jshint/bin/jshint Jakefile.js', { interactive: true }, complete);
+
+  }, { async: true });
+
+  function lintOptions() {
+    return {
         bitwise: true,
         freeze: true,
         strict: true,
@@ -55,11 +63,19 @@
 
         node: true,
         browser: true
-      },
-      globals: {}
-    }, complete, fail);
-    //jake.exec('node node_modules/jshint/bin/jshint Jakefile.js', { interactive: true }, complete);
+      };
+  }
 
-  }, { async: true });
+  function lintGlobals() {
+    return {
+      // Mocha
+      describe: false,
+      it: false,
+      before: false,
+      after: false,
+      beforeEach: false,
+      afterEach: false
+    };
+  }
 
 }());
