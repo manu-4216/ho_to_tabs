@@ -4,6 +4,7 @@
 module.exports = function(config) {
   config.set({
 
+
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
@@ -11,7 +12,6 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'browserify'],
-
 
     // list of files / patterns to load in the browser
     files: [
@@ -34,7 +34,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port
@@ -51,17 +51,18 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
+
+    captureTimeout: 60000,
 
     // Concurrency level
     // how many browser should be started simultaneous
