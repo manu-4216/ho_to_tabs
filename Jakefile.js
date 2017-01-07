@@ -19,6 +19,7 @@
       }, complete, fail);
   }, {async: true});
 
+  // DEFAULT TASK:
   desc('Default build');
   task('default', ['version', 'lint', 'test'], function() {
     console.log("BUILD OK");
