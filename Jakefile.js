@@ -5,6 +5,7 @@
 
   var jshint = require('simplebuild-jshint');
   var karma = require('simplebuild-karma');
+  var DIST_DIR = 'generated/dist',
 
   //*** General purpose tasks
 
@@ -30,11 +31,23 @@
   }, {async: true});
 
   desc('Run a localhost server');
-  task('run', function() {
-    jake.exec('node node_modules/http-server/bin/http-server src', { interactive: true }, complete);
+  task('run', ['build'], function() {
+    jake.exec('node node_modules/http-server/bin/http-server ' + DIST_DIR, { interactive: true }, complete);
     console.log('Running http-server');
   }, { async: true });
 
+  desc('Clean all generated files');
+  task('clean', [], function() {
+    console.log('Erasing generated files:');
+    
+  });
+
+  desc('Build');
+  task('build', [DIST_DIR], function() {
+    console.log('Building distribution directory:');
+  });
+
+  directory(DIST_DIR);
 
   //*** Supporting tasks
 
