@@ -7,7 +7,7 @@
   var karma = require('simplebuild-karma');
   var shell = require('shelljs');
 
-  var DIST_DIR = 'generated/dist',
+  var DIST_DIR = 'generated/dist';
 
   //*** General purpose tasks
 
@@ -21,7 +21,7 @@
 
   desc('Default build');
   task('default', ['version', 'lint', 'test'], function() {
-    console.log("\n\nBUILD OK");
+    console.log("BUILD OK");
   });
 
   desc('Run test');
@@ -39,15 +39,19 @@
   }, { async: true });
 
   desc('Clean all generated files');
-  task('clean', [], function() {
+  task('clean', function() {
     console.log('Erasing generated files:');
     shell.rm('-rf', 'generated');
   });
 
   desc('Build');
-  task('build', [DIST_DIR], function() {
+  task('build', [ DIST_DIR ], function() {
     console.log('Building distribution directory:');
-  });
+    shell.rm('-rf', DIST_DIR + '/*');
+    shell.cp('src/index.html', DIST_DIR);
+
+    jake.exec('node node_modules/browserify/bin/cmd.js src/app.js -o ' + DIST_DIR + '/bundle.js', { interactive: true}, complete);
+  }, { async: true});
 
   directory(DIST_DIR);
 
