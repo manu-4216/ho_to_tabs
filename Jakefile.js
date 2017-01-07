@@ -1,4 +1,4 @@
-/* globals jake:false, desc:false, task:false, complete:false, fail:false */
+/* globals jake:false, desc:false, task:false, complete:false, fail:false, directory: false */
 
 (function() {
   'use strict';
@@ -48,9 +48,9 @@
   task('build', [ DIST_DIR ], function() {
     console.log('Building distribution directory:');
     shell.rm('-rf', DIST_DIR + '/*');
-    shell.cp('src/index.html', DIST_DIR);
+    shell.cp('src/content/*', DIST_DIR);
 
-    jake.exec('node node_modules/browserify/bin/cmd.js src/app.js -o ' + DIST_DIR + '/bundle.js', { interactive: true}, complete);
+    jake.exec('node node_modules/browserify/bin/cmd.js src/js/app.js -o ' + DIST_DIR + '/bundle.js', { interactive: true}, complete);
   }, { async: true});
 
   directory(DIST_DIR);
@@ -81,7 +81,7 @@
     process.stdout.write('Linting JS: ');
 
     jshint.checkFiles({
-      files: ["Jakefile.js", "src/**/*.js"],
+      files: ["Jakefile.js", "src/js/**/*.js"],
       options: lintOptions(),
       globals: lintGlobals(),
     }, complete, fail);
