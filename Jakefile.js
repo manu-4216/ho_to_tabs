@@ -5,6 +5,8 @@
 
   var jshint = require('simplebuild-jshint');
   var karma = require('simplebuild-karma');
+  var shell = require('shelljs');
+
   var DIST_DIR = 'generated/dist',
 
   //*** General purpose tasks
@@ -39,7 +41,7 @@
   desc('Clean all generated files');
   task('clean', [], function() {
     console.log('Erasing generated files:');
-    
+    shell.rm('-rf', 'generated');
   });
 
   desc('Build');
